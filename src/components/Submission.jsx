@@ -1,19 +1,35 @@
 import React, { useState } from "react";
 
-const Submission = () => {
-
+const Submission = ({onSave, formData, setFormData}) => {
   const [category, setCategory] = useState("income");
-  
+ 
 
   const handleExpense = () => {
     setCategory("expense");
-    
   };
 
   const handleIncome = () => {
     setCategory("income");
+  };
+
+  // Handle input changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form Data:", formData);
+    onSave(formData);
+    
     
   };
+
   return (
     <div>
       <div className="p-6 py-8 bg-[#F9FAFB] border rounded-md">
@@ -21,18 +37,26 @@ const Submission = () => {
           Expense Tracker
         </h2>
 
-        <form>
+        <form onSubmit={handleSubmit}>
           {/* 2 select buttons */}
           <div className="flex divide-x divide-slate-400/20 overflow-hidden rounded-md bg-white text-[0.8125rem] font-medium leading-5 text-slate-700 shadow-sm ring-1 ring-slate-700/10 mt-6">
             <div
               onClick={handleExpense}
-              className={`cursor-pointer text-center flex-1 px-4 py-2 ${category === 'expense' ? 'bg-green-500 text-white' : 'bg-white text-black'}`}
+              className={`cursor-pointer text-center flex-1 px-4 py-2 ${
+                category === "expense"
+                  ? "bg-green-500 text-white"
+                  : "bg-white text-black"
+              }`}
             >
               Expense
             </div>
             <div
               onClick={handleIncome}
-              className={`cursor-pointer text-center flex-1 px-4 py-2 ${category === 'income' ? 'bg-green-500 text-white' : 'bg-white text-black'}`}
+              className={`cursor-pointer text-center flex-1 px-4 py-2 ${
+                category === "income"
+                  ? "bg-green-500 text-white"
+                  : "bg-white text-black"
+              }`}
             >
               Income
             </div>
@@ -43,7 +67,7 @@ const Submission = () => {
             {category === "income" ? (
               <div className="mt-3">
                 <label
-                  for="category"
+                  htmlFor="category"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Category
@@ -52,6 +76,8 @@ const Submission = () => {
                   <select
                     id="category"
                     name="category"
+                    value={formData.category}
+                    onChange={handleChange}
                     autocomplete="category-name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
                   >
@@ -65,7 +91,7 @@ const Submission = () => {
             ) : (
               <div className="mt-3">
                 <label
-                  for="category"
+                  htmlFor="category"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Category
@@ -74,6 +100,8 @@ const Submission = () => {
                   <select
                     id="category"
                     name="category"
+                    value={formData.category}
+                    onChange={handleChange}
                     autocomplete="category-name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
                   >
@@ -96,7 +124,7 @@ const Submission = () => {
           {/* Amount */}
           <div className="mt-3">
             <label
-              for="amount"
+              htmlFor="amount"
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               Amount
@@ -106,6 +134,8 @@ const Submission = () => {
                 type="number"
                 name="amount"
                 id="amount"
+                value={formData.amount}
+                onChange={handleChange}
                 autocomplete="off"
                 placeholder="12931"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
@@ -115,7 +145,7 @@ const Submission = () => {
           {/* date */}
           <div className="mt-3">
             <label
-              for="date"
+              htmlFor="date"
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               Date
@@ -125,6 +155,8 @@ const Submission = () => {
                 type="date"
                 name="date"
                 id="date"
+                value={formData.date}
+                onChange={handleChange}
                 autocomplete="off"
                 placeholder="12931"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
