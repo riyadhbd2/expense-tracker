@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import Balance from "./components/Balance";
-import Expense from "./components/Expense";
-import Income from "./components/Income";
+
 import Navbar from "./components/Navbar";
 import Submission from "./components/Submission";
 import TotalExpense from "./components/TotalExpense";
 import TotalIncome from "./components/TotalIncome";
+import Income from "./components/Income";
+import Expense from "./components/Expense";
 
 const App = () => {
   const [formData, setFormData] = useState({
@@ -16,17 +17,21 @@ const App = () => {
   const [balances, setBalances] = useState(0);
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
+  const [incomesDatas, setIncomesDatas] = useState([]);
+  const [expenseDatas, setExpenseDatas] = useState([]);
 
-  const handleSave = (formData) => {
+
+  const handleSave = (data) => {
     const amount = parseFloat(formData.amount);
     if (!isNaN(amount)) {
       if (
         ["Salary", "Outsourcing", "Bond", "Divident"].includes(
-          formData.category
+          data.category
         )
       ) {
         setTotalIncome((prevIncome) => prevIncome + amount);
         setBalances((prevBalances) => prevBalances + amount);
+        setIncomesDatas((prevFromDatas) => [...prevFromDatas, data]);
       } else if (
         [
           "Education",
@@ -37,20 +42,24 @@ const App = () => {
           "Tax",
           "Transport",
           "Telephone",
-        ].includes(formData.category)
+        ].includes(data.category)
       ) {
         setTotalExpense((prevExpense) => prevExpense + amount);
         setBalances((prevBalances) => prevBalances - amount);
+        setExpenseDatas((prevFromDatas) => [...prevFromDatas, data]);
       }
    
       setFormData((prevData) => ({
         ...prevData,
-        category: formData.category,  // Keep the same category after submission
+        category: data.category,  // Keep the same category after submission
         amount: '',  // Reset the amount field
       }));
     } else {
       console.error("Invalid amount entered");
     }
+    // income serction
+   
+
   };
 
   return (
@@ -80,11 +89,8 @@ const App = () => {
 
             {/* <!-- List Down --> */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">
-              {/* <!-- Expense --> */}
-              <Expense></Expense>
-
-              {/* <!-- Income --> */}
-              <Income></Income>
+              <Income incomesDatas={incomesDatas} formData={formData}></Income>
+              <Expense expenseDatas={expenseDatas} formData={formData}></Expense>
             </div>
           </div>
         </section>
