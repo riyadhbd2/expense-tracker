@@ -1,7 +1,13 @@
 import React from "react";
 
-const Expense = ({ expenseDatas }) => {
-  console.log(expenseDatas);
+const Expense = ({ expenseDatas, onDelete }) => {
+  const handleEdit = (id) => {
+    console.log(id);
+  };
+  const handleDelete = (id) => {
+    console.log(id);
+    onDelete(id);
+  };
   return (
     <div>
       <div className="border rounded-md">
@@ -245,7 +251,10 @@ const Expense = ({ expenseDatas }) => {
 
           {/* <!-- Expense Row 1 --> */}
           {expenseDatas.map((expenseData) => (
-            <div key={crypto.randomUUID()} className="flex justify-between items-center py-2 relative group cursor-pointer">
+            <div
+              key={expenseData.id}
+              className="flex justify-between items-center py-2 relative group cursor-pointer"
+            >
               <div>
                 <h3 className="text-base font-medium leading-7 text-gray-600">
                   {expenseData.category}
@@ -260,6 +269,7 @@ const Expense = ({ expenseDatas }) => {
                 {/* <!-- 3 Dots --> */}
                 <div className="translate-x-5 group-hover:translate-x-0 opacity-0 group-hover:opacity-100 absolute right-0 top-1/2 -translate-y-1/2 transition-all">
                   <button
+                    onClick={() => handleEdit(expenseData.id)}
                     className="hover:text-teal-600"
                     role="button"
                     title="Edit Button"
@@ -282,6 +292,7 @@ const Expense = ({ expenseDatas }) => {
                   </button>
 
                   <button
+                    onClick={() => handleDelete(expenseData.id)}
                     className="hover:text-red-600"
                     role="button"
                     title="Delete"

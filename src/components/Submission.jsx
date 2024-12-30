@@ -1,15 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const Submission = ({onSave, formData, setFormData}) => {
+const Submission = ({ onSave, formData, setFormData }) => {
   const [category, setCategory] = useState("income");
- 
 
+  // Initialize the formData.category based on the selected category on first render
+  useEffect(() => {
+    const defaultCategory = category === "income" ? "Salary" : "Education";
+    setFormData((prevData) => ({
+      ...prevData,
+      category: defaultCategory,
+    }));
+  }, [category, setFormData]);
+
+  // handle Enpense Function
   const handleExpense = () => {
     setCategory("expense");
+    setFormData((prevData) => ({
+      ...prevData,
+      category: "Eduation",
+    }));
   };
 
+  // handle Income Function
   const handleIncome = () => {
     setCategory("income");
+    setFormData((prevData) => ({
+      ...prevData,
+      category: "Salary",
+    }));
   };
 
   // Handle input changes
@@ -18,6 +36,7 @@ const Submission = ({onSave, formData, setFormData}) => {
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
+      id: Date.now(),
     }));
   };
 
@@ -26,8 +45,6 @@ const Submission = ({onSave, formData, setFormData}) => {
     e.preventDefault();
     console.log("Form Data:", formData);
     onSave(formData);
-    
-    
   };
 
   return (

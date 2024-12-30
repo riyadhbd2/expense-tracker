@@ -1,7 +1,15 @@
 import React from "react";
 
-const Income = ({ incomesDatas }) => {
+const Income = ({ incomesDatas, onEdit, onDelete }) => {
   console.log(incomesDatas);
+  const handleEdit = (id) => {
+    console.log(id);
+    onEdit(id);
+  };
+
+  const handleDelete = (id) =>{
+    onDelete(id);
+  }
   return (
     <div>
       <div className="border rounded-md relative">
@@ -186,7 +194,10 @@ const Income = ({ incomesDatas }) => {
           {/* <!-- Row --> */}
 
           {incomesDatas.map((incomeData) => (
-            <div key={crypto.randomUUID()} className="flex justify-between items-center py-2 relative group cursor-pointer">
+            <div
+              key={incomeData.id}
+              className="flex justify-between items-center py-2 relative group cursor-pointer"
+            >
               <div>
                 <h3 className="text-base font-medium leading-7 text-gray-600">
                   {incomeData.category}
@@ -201,6 +212,7 @@ const Income = ({ incomesDatas }) => {
                 {/* <!-- 3 Dots --> */}
                 <div className="translate-x-5 group-hover:translate-x-0 opacity-0 group-hover:opacity-100 absolute right-0 top-1/2 -translate-y-1/2 transition-all">
                   <button
+                    onClick={() => handleEdit(incomeData.id)}
                     className="hover:text-teal-600"
                     role="button"
                     title="Edit Button"
@@ -223,6 +235,7 @@ const Income = ({ incomesDatas }) => {
                   </button>
 
                   <button
+                    onClick={() => handleDelete(incomeData.id)}
                     className="hover:text-red-600"
                     role="button"
                     title="Delete"

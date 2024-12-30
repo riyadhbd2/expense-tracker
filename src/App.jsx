@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Balance from "./components/Balance";
-
 import Navbar from "./components/Navbar";
 import Submission from "./components/Submission";
 import TotalExpense from "./components/TotalExpense";
@@ -10,18 +9,23 @@ import Expense from "./components/Expense";
 
 const App = () => {
   const [formData, setFormData] = useState({
-    category: "",
-    amount: "",
+    id:"",
+    category:"",
+    amount:"",
     date: "",
   });
   const [balances, setBalances] = useState(0);
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
+
   const [incomesDatas, setIncomesDatas] = useState([]);
   const [expenseDatas, setExpenseDatas] = useState([]);
 
 
   const handleSave = (data) => {
+    console.log(data);
+    console.log(incomesDatas);
+    
     const amount = parseFloat(formData.amount);
     if (!isNaN(amount)) {
       if (
@@ -51,6 +55,7 @@ const App = () => {
    
       setFormData((prevData) => ({
         ...prevData,
+        id:'', //reset id
         category: data.category,  // Keep the same category after submission
         amount: '',  // Reset the amount field
       }));
@@ -62,6 +67,18 @@ const App = () => {
 
   };
 
+
+  // Delete function for income
+  const handleDeleteFromIncome = (id) =>{
+    const remaining = incomesDatas.filter(incomeData => incomeData.id !== id);
+    setIncomesDatas(remaining);
+  }
+
+  // Delete function for delete
+  const handleDeleteFromExpense = (id) =>{
+    const remaining = expenseDatas.filter(expenseData => expenseData.id !== id);
+    setExpenseDatas(remaining);
+  }
   return (
     <div>
       <Navbar></Navbar>
@@ -89,8 +106,8 @@ const App = () => {
 
             {/* <!-- List Down --> */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">
-              <Income incomesDatas={incomesDatas} formData={formData}></Income>
-              <Expense expenseDatas={expenseDatas} formData={formData}></Expense>
+              <Income onDelete={handleDeleteFromIncome}  incomesDatas={incomesDatas} formData={formData}></Income>
+              <Expense onDelete={handleDeleteFromExpense} expenseDatas={expenseDatas} formData={formData}></Expense>
             </div>
           </div>
         </section>
