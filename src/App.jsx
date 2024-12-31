@@ -132,6 +132,7 @@ const App = () => {
                 onEdit={handleEditFromExpense}
                 onDelete={handleDeleteFromExpense}
                 expenseDatas={expenseDatas}
+                setExpenseDatas={setExpenseDatas}
                 formData={formData}
               ></Expense>
             </div>
