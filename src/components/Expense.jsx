@@ -1,8 +1,9 @@
 import React from "react";
 
-const Expense = ({ expenseDatas, onDelete }) => {
+const Expense = ({ expenseDatas, onDelete, onEdit }) => {
   const handleEdit = (id) => {
     console.log(id);
+    onEdit(id);
   };
   const handleDelete = (id) => {
     console.log(id);
@@ -268,6 +269,7 @@ const Expense = ({ expenseDatas, onDelete }) => {
 
                 {/* <!-- 3 Dots --> */}
                 <div className="translate-x-5 group-hover:translate-x-0 opacity-0 group-hover:opacity-100 absolute right-0 top-1/2 -translate-y-1/2 transition-all">
+                  {/* edit button */}
                   <button
                     onClick={() => handleEdit(expenseData.id)}
                     className="hover:text-teal-600"
@@ -290,7 +292,7 @@ const Expense = ({ expenseDatas, onDelete }) => {
                       <path d="M13.5 6.5l4 4" />
                     </svg>
                   </button>
-
+                  {/* delete button */}
                   <button
                     onClick={() => handleDelete(expenseData.id)}
                     className="hover:text-red-600"

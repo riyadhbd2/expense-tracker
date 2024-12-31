@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 
-const Submission = ({ onSave, formData, setFormData }) => {
-  const [category, setCategory] = useState("income");
+const Submission = ({ onSave, formData, setFormData, edit, category, setCategory }) => {
+  console.log(edit);
+  
 
   // Initialize the formData.category based on the selected category on first render
   useEffect(() => {
@@ -11,6 +12,9 @@ const Submission = ({ onSave, formData, setFormData }) => {
       category: defaultCategory,
     }));
   }, [category, setFormData]);
+
+
+
 
   // handle Enpense Function
   const handleExpense = () => {
@@ -46,6 +50,8 @@ const Submission = ({ onSave, formData, setFormData }) => {
     console.log("Form Data:", formData);
     onSave(formData);
   };
+
+
 
   return (
     <div>
@@ -154,8 +160,8 @@ const Submission = ({ onSave, formData, setFormData }) => {
                 value={formData.amount}
                 onChange={handleChange}
                 autocomplete="off"
-                placeholder="12931"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
+                placeholder="12.99"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6 placeholder:p-1"
               />
             </div>
           </div>
@@ -175,8 +181,8 @@ const Submission = ({ onSave, formData, setFormData }) => {
                 value={formData.date}
                 onChange={handleChange}
                 autocomplete="off"
-                placeholder="12931"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6"
+                placeholder="12.99"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-600 sm:text-sm sm:leading-6 placeholder:p-1"
               />
             </div>
           </div>
