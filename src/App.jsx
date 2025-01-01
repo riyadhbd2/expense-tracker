@@ -32,12 +32,12 @@ const App = () => {
     const amount = parseFloat(formData.amount);
     if (!isNaN(amount)) {
       if (
-        ["Salary", "Outsourcing", "Bond", "Divident"].includes(data.category)
+        ["Salary", "Outsourcing", "Bond", "Devident"].includes(data.category)
       ) {
         setTotalIncome((prevIncome) => prevIncome + amount);
         setBalances((prevBalances) => prevBalances + amount);
+
         if (editList) {
-      
           setIncomesDatas((prevFromDatas)=> [
             ...prevFromDatas.filter((item) => item.id !== editList.id), data
           ])
@@ -58,9 +58,19 @@ const App = () => {
           "Telephone",
         ].includes(data.category)
       ) {
+
         setTotalExpense((prevExpense) => prevExpense + amount);
         setBalances((prevBalances) => prevBalances - amount);
-        setExpenseDatas((prevFromDatas) => [...prevFromDatas, data]);
+        
+           
+        if (editList) {
+          setExpenseDatas((prevFromDatas)=> [
+            ...prevFromDatas.filter((item) => item.id !== editList.id), data
+          ])
+     
+        } else{
+          setExpenseDatas((prevFromDatas) => [...prevFromDatas, data]);
+        }
       }
 
       setFormData((prevData) => ({
