@@ -1,7 +1,7 @@
 import React, { useEffect} from "react";
 
-const Submission = ({ onSave, formData, setFormData, edit, category, setCategory }) => {
-  console.log(edit);
+const Submission = ({ onSave, formData, setFormData, category, setCategory, editList }) => {
+
   
 
   // Initialize the formData.category based on the selected category on first render
@@ -13,7 +13,12 @@ const Submission = ({ onSave, formData, setFormData, edit, category, setCategory
     }));
   }, [category, setFormData]);
 
-
+  // Initialize the formData based on the selected category for edit
+  useEffect(() => {
+    if (editList) {
+      setFormData(editList);
+    }
+  }, [editList]);
 
 
   // handle Enpense Function
@@ -187,12 +192,7 @@ const Submission = ({ onSave, formData, setFormData, edit, category, setCategory
             </div>
           </div>
 
-          <button
-            type="submit"
-            className="mt-6 rounded-md bg-teal-600 px-8 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 w-full"
-          >
-            Save
-          </button>
+          <button type="submit" className="mt-6 rounded-md bg-teal-600 px-8 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 w-full">{editList ? "Update" : "Add"}</button>
         </form>
       </div>
     </div>

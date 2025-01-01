@@ -23,7 +23,7 @@ const App = () => {
   const [incomesDatas, setIncomesDatas] = useState([]);
   const [expenseDatas, setExpenseDatas] = useState([]);
 
-  const [edit, setEdit] = useState("");
+  const [editList, setEditList] = useState(null);
 
   const handleSave = (data) => {
     console.log(data);
@@ -66,6 +66,16 @@ const App = () => {
     // income serction
   };
 
+  // handle Edit income
+  const handleEdit = (id) => {
+    // Search for the data in incomesDatas
+    const editData =
+      incomesDatas.find((incomeData) => incomeData.id === id) ||
+      expenseDatas.find((expenseData) => expenseData.id === id);
+    console.log(editData);
+    setEditList(editData);
+  };
+
   // Delete function for income
   const handleDeleteFromIncome = (id) => {
     const remaining = incomesDatas.filter((incomeData) => incomeData.id !== id);
@@ -80,14 +90,6 @@ const App = () => {
     setExpenseDatas(remaining);
   };
 
-  // handle edit for expense
-  const handleEditFromExpense = (id) => {
-    console.log(id);
-    const editData = expenseDatas.find((expenseData) => expenseData.id === id);
-    console.log(editData);
-    
-    setEdit(editData);
-  };
   return (
     <div>
       <Navbar></Navbar>
@@ -96,8 +98,8 @@ const App = () => {
           {/* <!-- Submission Form --> */}
           <Submission
             category={category}
+            editList={editList}
             setCategory={setCategory}
-            edit={edit}
             formData={formData}
             setFormData={setFormData}
             onSave={handleSave}
@@ -121,6 +123,7 @@ const App = () => {
               <Income
                 category={category}
                 setCategory={setCategory}
+                onEdit={handleEdit}
                 onDelete={handleDeleteFromIncome}
                 incomesDatas={incomesDatas}
                 setIncomesDatas={setIncomesDatas}
@@ -129,7 +132,7 @@ const App = () => {
               <Expense
                 category={category}
                 setCategory={setCategory}
-                onEdit={handleEditFromExpense}
+                onEdit={handleEdit}
                 onDelete={handleDeleteFromExpense}
                 expenseDatas={expenseDatas}
                 setExpenseDatas={setExpenseDatas}
