@@ -7,9 +7,11 @@ const Navbar = () => {
       <nav>
         <div className="flex max-w-7xl items-center bg-[#F9FAFB] w-full justify-between py-1 mt-2 border px-4 rounded-md mx-auto">
           {/* <!-- Logo --> */}
-          <div>
+          <div className="flex items-center gap-2 text-2xl font-bold">
             <img src={logo} className="h-14 rounded-full" />
+            <h1>Expense Tracker</h1>
           </div>
+         
 
           {/* <!-- Menu --> */}
           <div className="hidden md:block">
