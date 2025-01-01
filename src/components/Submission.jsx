@@ -13,7 +13,7 @@ const Submission = ({ onSave, formData, setFormData, category, setCategory, edit
     }));
   }, [category, setFormData]);
 
-  // Initialize the formData based on the selected category for edit
+  // Initialize the formData based on the selected list for edit
   useEffect(() => {
     if (editList) {
       setFormData(editList);
@@ -33,10 +33,15 @@ const Submission = ({ onSave, formData, setFormData, category, setCategory, edit
   // handle Income Function
   const handleIncome = () => {
     setCategory("income");
-    setFormData((prevData) => ({
-      ...prevData,
-      category: "Salary",
-    }));
+    if (editList) {
+      setFormData((prevData)=> prevData.filter((p) => p.id !== editList.id));
+    } else{
+      setFormData((prevData) => ({
+        ...prevData,
+        category: "Salary",
+      }));
+    }
+   
   };
 
   // Handle input changes

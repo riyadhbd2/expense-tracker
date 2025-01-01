@@ -36,7 +36,16 @@ const App = () => {
       ) {
         setTotalIncome((prevIncome) => prevIncome + amount);
         setBalances((prevBalances) => prevBalances + amount);
-        setIncomesDatas((prevFromDatas) => [...prevFromDatas, data]);
+        if (editList) {
+      
+          setIncomesDatas((prevFromDatas)=> [
+            ...prevFromDatas.filter((item) => item.id !== editList.id), data
+          ])
+          
+        } else{
+          setIncomesDatas((prevFromDatas) => [...prevFromDatas, data]);
+        }
+        
       } else if (
         [
           "Education",
