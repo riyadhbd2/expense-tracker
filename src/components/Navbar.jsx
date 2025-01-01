@@ -1,4 +1,5 @@
 import React from "react";
+import logo from '../assets/profile_logo.jpg';
 
 const Navbar = () => {
   return (
@@ -7,7 +8,7 @@ const Navbar = () => {
         <div className="flex max-w-7xl items-center bg-[#F9FAFB] w-full justify-between py-1 mt-2 border px-4 rounded-md mx-auto">
           {/* <!-- Logo --> */}
           <div>
-            <img src="./assets/image/favicon.svg" className="h-14" />
+            <img src={logo} className="h-14 rounded-full" />
           </div>
 
           {/* <!-- Menu --> */}

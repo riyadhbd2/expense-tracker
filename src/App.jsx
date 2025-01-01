@@ -26,8 +26,6 @@ const App = () => {
   const [editList, setEditList] = useState(null);
 
   const handleSave = (data) => {
-    console.log(data);
-    console.log(incomesDatas);
 
     const amount = parseFloat(formData.amount);
     if (!isNaN(amount)) {
